@@ -1,3 +1,100 @@
+/* UI COLORS COLOR CODE: #53a1ea */
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  /* sets base font size to 10px */
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --small-text: 2.5rem;
+  --medium-text: 4rem;
+  --large-text: 8rem;
+}
+
 body {
-  background-color: red;
+  font-family: "Nunito", "Times New Roman", Times, serif;
+  background-image: linear-gradient(to bottom, #53a1ea, #2a6acb);
+  color: #f0f8fe;
+  padding: 3rem 4rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.dark-bg {
+  background-color: #1b2e50;
+}
+
+/* header section */
+header {
+  justify-content: space-between;
+  font-size: var(--small-text);
+  align-items: center;
+  align-content: center;
+}
+
+#brand {
+  align-items: center;
+  gap: 1rem;
+  color: #f0f8fe;
+}
+
+#search {
+  height: 3rem;
+  display: flex;
+  padding: 2rem;
+  width: 35rem;
+  border-radius: 3rem;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#city,
+#magnifying,
+#unit {
+  color: #f0f8fe;
+}
+
+#city::placeholder {
+  color: #ddeefc;
+  font-weight: 700;
+}
+
+#city {
+  padding: 1rem;
+  border-radius: 2rem;
+  border: none;
+  text-align: left;
+  outline: none;
+  width: 30rem;
+  font-weight: 700;
+}
+
+#magnifying {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+#unit {
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  border: unset;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-weight: 700;
 }
