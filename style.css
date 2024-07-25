@@ -67,12 +67,17 @@ header {
   border-radius: 3rem;
   align-items: center;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  gap: 0.5rem;
 }
 
 #location,
 #magnifying,
 #unit {
   color: var(--light);
+}
+
+.hide {
+  display: none;
 }
 
 #location::placeholder {
@@ -90,7 +95,8 @@ header {
   font-weight: 700;
 }
 
-#magnifying {
+#magnifying,
+#xmark {
   font-size: 2rem;
   cursor: pointer;
 }
