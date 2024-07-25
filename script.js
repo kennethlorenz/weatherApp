@@ -3,6 +3,12 @@ const unitChangeBtn = document.getElementById("unit");
 const xMarkBtn = document.getElementById("xmark");
 xMarkBtn.style.display = "none";
 
+xMarkBtn.addEventListener("click", () => {
+  let inputField = document.getElementById("location");
+  inputField.value = "";
+  xMarkBtn.style.display = "none";
+});
+
 unitChangeBtn.addEventListener("click", (e) => {
   console.log(e.target.textContent);
   if (e.target.textContent === "Change to °F") {
