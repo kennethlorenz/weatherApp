@@ -1,10 +1,20 @@
 const cityLocation = document.getElementById("city");
+const unitChangeBtn = document.getElementById("unit");
+
+unitChangeBtn.addEventListener("click", (e) => {
+  console.log(e.target.textContent);
+  if (e.target.textContent === "Change to °F") {
+    e.target.textContent = "Change to °C";
+  } else {
+    e.target.textContent = "Change to °F";
+  }
+});
 
 cityLocation.addEventListener("keyup", (e) => {
   if (e.key === "Enter") {
     const city = cityLocation.value;
     console.log(city);
-    getWeatherData(city);
+    //getWeatherData(city);
   }
 });
 async function getWeatherData(city) {
@@ -35,4 +45,4 @@ async function getWeatherData(city) {
   );
 }
 
-getWeatherData();
+//getWeatherData();
