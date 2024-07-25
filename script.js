@@ -1,5 +1,7 @@
-const cityLocation = document.getElementById("city");
+const cityLocation = document.getElementById("location");
 const unitChangeBtn = document.getElementById("unit");
+const xMarkBtn = document.getElementById("xmark");
+xMarkBtn.style.display = "none";
 
 unitChangeBtn.addEventListener("click", (e) => {
   console.log(e.target.textContent);
@@ -7,6 +9,17 @@ unitChangeBtn.addEventListener("click", (e) => {
     e.target.textContent = "Change to °C";
   } else {
     e.target.textContent = "Change to °F";
+  }
+});
+
+cityLocation.addEventListener("keyup", (e) => {
+  const inputLength = cityLocation.value.length;
+  console.log(inputLength);
+  if (inputLength === 0) {
+    console.log("Filled");
+    xMarkBtn.style.display = "none";
+  } else {
+    xMarkBtn.style.display = "block";
   }
 });
 
