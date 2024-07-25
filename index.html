@@ -22,7 +22,7 @@
         <input
           class="dark-bg"
           type="text"
-          id="city"
+          id="location"
           placeholder="Search location"
         /><i
           id="magnifying"
@@ -34,6 +34,73 @@
         <button class="dark-bg" id="unit">Change to °F</button>
       </div>
     </header>
+    <main class="center">
+      <section class="center">
+        <section id="city" class="bold">Toronto, ON Canada</section>
+        <section id="date">Monday 22 July 2024 | 22:06</section>
+      </section>
+      <section id="currentConditions" class="flex">
+        <section>
+          <section id="temperature-section" class="flex">
+            <div id="temperature-logo">
+              <i class="fa-solid fa-cloud-sun"></i>
+            </div>
+            <div id="temperature">24°C</div>
+          </section>
+          <section>
+            <p id="condition" class="bold">Scattered clouds</p>
+            <p id="feelsLike">Feels Like 24°C</p>
+          </section>
+        </section>
+        <section id="conditions" class="flex">
+          <section class="row flex">
+            <section class="row-item">
+              <section class="title">Wind</section>
+              <section id="windDirection" class="flex">
+                <i class="fa-solid fa-arrow-right"></i>
+                <p>8m/s</p>
+              </section>
+            </section>
+            <section class="row-item">
+              <section class="title">Humidity</section>
+              <section id="humidity">
+                <p>76%</p>
+              </section>
+            </section>
+            <section class="row-item">
+              <section class="title">UV Index</section>
+              <section id="uvIndex">
+                <p>2</p>
+              </section>
+            </section>
+          </section>
+          <section class="row flex">
+            <section class="row-item">
+              <section class="title">Visibility</section>
+              <section id="visibility" class="flex">10km</section>
+            </section>
+            <section class="row-item">
+              <section class="title">Cloudiness</section>
+              <section id="cloudiness">76%</section>
+            </section>
+            <section class="row-item">
+              <section class="title">Chance of Rain</section>
+              <section id="chanceOfRain">100%</section>
+            </section>
+          </section>
+          <section class="row flex">
+            <section class="row-item">
+              <section class="title">Sunrise</section>
+              <section id="sunrise" class="flex">5:50</section>
+            </section>
+            <section class="row-item">
+              <section class="title">Sunset</section>
+              <section id="sunset">21:43</section>
+            </section>
+          </section>
+        </section>
+      </section>
+    </main>
     <script src="script.js"></script>
     <script
       src="https://kit.fontawesome.com/8e0b079cd6.js"
