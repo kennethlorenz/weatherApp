@@ -1,6 +1,8 @@
 const cityLocation = document.getElementById("location");
 const unitChangeBtn = document.getElementById("unit");
 const xMarkBtn = document.getElementById("xmark");
+const searchIcon = document.getElementById("magnifying");
+
 xMarkBtn.style.display = "none";
 
 xMarkBtn.addEventListener("click", () => {
@@ -36,6 +38,20 @@ cityLocation.addEventListener("keyup", (e) => {
     //getWeatherData(city);
   }
 });
+
+function getCurrentDateAndTime() {
+  const currentDate = new Date();
+  let dayName = currentDate.toLocaleString("en-us", { weekday: "long" });
+  let day = currentDate.getDate();
+  let month = currentDate.toLocaleString("default", { month: "long" });
+  let year = currentDate.getFullYear();
+  let hour = currentDate.getHours();
+  let minutes = currentDate.getMinutes();
+
+  let dateString = `${dayName} ${day} ${month} ${year} | ${hour}:${minutes}`;
+  console.log(`${dayName} ${day} ${month} ${year} | ${hour}:${minutes}`);
+}
+
 async function getWeatherData(city) {
   const apiKey = "ASAL3VGETC2PTQ6332SXBPBB8";
   const res = await fetch(
