@@ -18,14 +18,19 @@ html {
 :root {
   --small-text: 2.5rem;
   --medium-text: 4rem;
-  --large-text: 8rem;
+  --large-text: 7rem;
+  --light-faded: #c3e3fa;
+  --light: #f0f8fe;
 }
 
 body {
   font-family: "Nunito", "Times New Roman", Times, serif;
-  background-image: linear-gradient(to bottom, #53a1ea, #2a6acb);
-  color: #f0f8fe;
+  background-image: linear-gradient(to bottom, #2a6acb, #264b82);
+  color: var(--light);
   padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
 }
 
 .flex {
@@ -51,7 +56,7 @@ header {
 #brand {
   align-items: center;
   gap: 1rem;
-  color: #f0f8fe;
+  color: var(--light);
 }
 
 #search {
@@ -64,18 +69,18 @@ header {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-#city,
+#location,
 #magnifying,
 #unit {
-  color: #f0f8fe;
+  color: var(--light);
 }
 
-#city::placeholder {
+#location::placeholder {
   color: #ddeefc;
   font-weight: 700;
 }
 
-#city {
+#location {
   padding: 1rem;
   border-radius: 2rem;
   border: none;
@@ -97,4 +102,82 @@ header {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   font-weight: 700;
+}
+
+#unit:hover {
+  outline: 2px solid var(--light);
+}
+
+/* main section */
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--light);
+}
+
+main {
+  gap: 4rem;
+}
+
+#city {
+  font-size: 4rem;
+}
+
+#date {
+  font-size: 2rem;
+  color: var(--light-faded);
+}
+
+#currentConditions {
+  gap: 5rem;
+  align-items: center;
+}
+
+/* Conditions left side*/
+#temperature-section {
+  gap: 1.5rem;
+}
+
+#temperature-logo,
+#temperature {
+  font-size: var(--large-text);
+  font-weight: bold;
+}
+
+#condition {
+  font-size: var(--small-text);
+}
+#feelsLike,
+#description,
+.row-item .title {
+  font-size: 1.8rem;
+  color: var(--light-faded);
+}
+
+/* conditions right side */
+#conditions {
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+.row {
+  margin-right: auto;
+}
+
+.row-item {
+  display: flex;
+  flex-direction: column;
+  width: 15rem;
+}
+
+.row-item .title + section {
+  color: var(--light);
+  font-weight: bold;
+  font-size: var(--small-text);
+}
+
+#windDirection {
+  align-items: center;
+  gap: 1rem;
 }
