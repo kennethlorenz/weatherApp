@@ -15,20 +15,21 @@ function getCurrentDateAndTime() {
   let minutes = currentDate.getMinutes();
 
   let dateString = `${dayName} ${day} ${month} ${year} | ${hour}:${minutes}`;
-  console.log(`${dayName} ${day} ${month} ${year} | ${hour}:${minutes}`);
   return dateString;
 }
 
 async function getWeatherData(city) {
-  const apiKey = "JKE49N7VF2M92VD8X25JJ3QBG";
+  const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
   const res = await fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/2024-07-25/2024-08-01?key=${apiKey}`,
+    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/2024-07-31//2024-08-07?key=${apiKey}`,
     { mode: "cors" }
   );
 
   const weatherData = await res.json();
   const address = weatherData.resolvedAddress;
-  let currentDateAndTime = getCurrentDateAndTime();
+  let datetime = weatherData.currentConditions.datetime;
+  let currentTime = datetime.slice(0, 5);
+  let currentDate = getCurrentDate();
   const temp = weatherData.currentConditions.temp;
   const condition = weatherData.currentConditions.conditions;
   const feelsLike = weatherData.currentConditions.feelslike;
@@ -41,45 +42,7 @@ async function getWeatherData(city) {
   const sunset = weatherData.currentConditions.sunset;
   const sunrise = weatherData.currentConditions.sunrise;
   console.log(weatherData);
-  console.log(
-    address,
-    currentDateAndTime,
-    temp,
-    condition,
-    feelsLike,
-    wind,
-    humidity,
-    uvIndex,
-    visibility,
-    cloudiness,
-    chanceOfRain,
-    feelsLike,
-    sunset,
-    sunrise
-  );
 
-  const weatherObj = {
-    address,
-    currentDateAndTime,
-    temp,
-    condition,
-    feelsLike,
-    wind,
-    humidity,
-    uvIndex,
-    visibility,
-    cloudiness,
-    chanceOfRain,
-    feelsLike,
-    sunset,
-    sunrise,
-  };
-
-  return weatherObj;
-}
-
-async function populate(city) {
-  let weatherData = await getWeatherData(city);
   const cityContainer = document.getElementById("city");
   const dateContainer = document.getElementById("date");
   const tempContainer = document.getElementById("temperature");
@@ -94,9 +57,52 @@ async function populate(city) {
   const sunriseContainer = document.getElementById("sunrise");
   const sunsetContainer = document.getElementById("sunset");
 
-  console.log(weatherData);
-  cityContainer.value = weatherData.address;
-  dateContainer.value = weatherData.currentDateAndTime;
+  cityContainer.textContent = address;
+  dateContainer.textContent = `${currentDate} | ${currentTime}`;
+  const weatherObj = {
+    address,
+    currentTime,
+    temp,
+    condition,
+    feelsLike,
+    wind,
+    humidity,
+    uvIndex,
+    visibility,
+    cloudiness,
+    chanceOfRain,
+    feelsLike,
+    sunset,
+    sunrise,
+  };
+  console.log(weatherObj);
+  return weatherObj;
+}
+
+function getCurrentDay(day) {
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  return dayNames[day];
+}
+
+function getCurrentDate() {
+  let date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  let dayName = getCurrentDay(date.getDay());
+
+  let currentDate = `${dayName} ${year}/${month}/${day}`;
+
+  return currentDate;
 }
 
 xMarkBtn.addEventListener("click", () => {
@@ -127,7 +133,6 @@ cityLocation.addEventListener("keyup", (e) => {
 cityLocation.addEventListener("keyup", async (e) => {
   if (e.key === "Enter") {
     const city = cityLocation.value;
-    console.log(city);
-    await populate(city);
+    await getWeatherData(city);
   }
 });
