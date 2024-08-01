@@ -20,8 +20,20 @@ function getCurrentDateAndTime() {
 
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
+
+  let date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let monthName = date.toLocaleString("default", { month: "long" });
+  let day = date.getDate();
+  let dayName = getCurrentDay(date.getDay());
+
+  let startDate = convertDate(`${year}-${month}-${day}`);
+  let endDate = convertDate(`${year}-${month}-${day + 7}`);
+
+  console.log(startDate, endDate);
   const res = await fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/2024-08-01//2024-08-08?key=${apiKey}`,
+    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${startDate}/${endDate}?key=${apiKey}`,
     { mode: "cors" }
   );
 
@@ -29,7 +41,7 @@ async function getWeatherData(city) {
   const address = weatherData.resolvedAddress;
   let datetime = weatherData.currentConditions.datetime;
   let currentTime = datetime.slice(0, 5);
-  let currentDate = getCurrentDate();
+  let currentDate = getCurrentDate(year, monthName, day, dayName);
   const temp = weatherData.currentConditions.temp;
   const condition = weatherData.currentConditions.conditions;
   const feelsLike = weatherData.currentConditions.feelslike;
@@ -79,6 +91,13 @@ async function getWeatherData(city) {
   return weatherObj;
 }
 
+function convertDate(str) {
+  return str
+    .split("-")
+    .map((s) => (s < 10 ? `0${s}` : s))
+    .join("-");
+}
+
 function getCurrentDay(day) {
   const dayNames = [
     "Sunday",
@@ -93,13 +112,7 @@ function getCurrentDay(day) {
   return dayNames[day];
 }
 
-function getCurrentDate() {
-  let date = new Date();
-  let year = date.getFullYear();
-  let month = date.toLocaleString("default", { month: "long" });
-  let day = date.getDate();
-  let dayName = getCurrentDay(date.getDay());
-
+function getCurrentDate(year, month, day, dayName) {
   let currentDate = `${dayName} ${day} ${month} ${year}`;
 
   return currentDate;
@@ -136,3 +149,5 @@ cityLocation.addEventListener("keyup", async (e) => {
     await getWeatherData(city);
   }
 });
+
+getWeatherData("toronto");
