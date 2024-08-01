@@ -21,7 +21,7 @@ function getCurrentDateAndTime() {
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
   const res = await fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/2024-07-31//2024-08-07?key=${apiKey}`,
+    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/2024-08-01//2024-08-08?key=${apiKey}`,
     { mode: "cors" }
   );
 
@@ -96,11 +96,11 @@ function getCurrentDay(day) {
 function getCurrentDate() {
   let date = new Date();
   let year = date.getFullYear();
-  let month = date.getMonth() + 1;
+  let month = date.toLocaleString("default", { month: "long" });
   let day = date.getDate();
   let dayName = getCurrentDay(date.getDay());
 
-  let currentDate = `${dayName} ${year}/${month}/${day}`;
+  let currentDate = `${dayName} ${day} ${month} ${year}`;
 
   return currentDate;
 }
