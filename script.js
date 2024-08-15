@@ -49,8 +49,8 @@ async function getWeatherData(city) {
   const visibility = weatherData.currentConditions.visibility;
   const cloudiness = weatherData.currentConditions.cloudcover;
   const chanceOfRain = weatherData.currentConditions.precipprob;
-  const sunset = weatherData.currentConditions.sunset;
-  const sunrise = weatherData.currentConditions.sunrise;
+  const sunset = weatherData.currentConditions.sunset.slice(0, 5);
+  const sunrise = weatherData.currentConditions.sunrise.slice(0, 5);
   console.log(weatherData);
 
   const cityContainer = document.getElementById("city");
@@ -58,18 +58,25 @@ async function getWeatherData(city) {
   const tempContainer = document.getElementById("temperature");
   const conditionContainer = document.getElementById("condition");
   const feelsContainer = document.getElementById("feelsLike");
-  const humidityContainer = document.getElementById("humidity");
   const visibilityContainer = document.getElementById("visibility");
   const cloudinessContainer = document.getElementById("cloudiness");
   const chanceOfRainContainer = document.getElementById("chanceOfRain");
   const sunriseContainer = document.getElementById("sunrise");
   const sunsetContainer = document.getElementById("sunset");
+  const humidityContainer = document.getElementById("humidity");
 
   cityContainer.textContent = address;
   dateContainer.textContent = `${currentDate} | ${currentTime}`;
   tempContainer.textContent = `${temp}°F`;
   conditionContainer.textContent = condition;
   feelsContainer.textContent = `Feels Like ${feelsLike}°F`;
+  visibilityContainer.textContent = `${visibility}km`;
+  cloudinessContainer.textContent = `${cloudiness}%`;
+  chanceOfRainContainer.textContent = `${chanceOfRain}%`;
+  sunriseContainer.textContent = `${sunrise}`;
+  sunsetContainer.textContent = `${sunset}`;
+  humidityContainer.textContent = `${humidity}%`;
+
   const weatherObj = {
     address,
     currentTime,
