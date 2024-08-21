@@ -32,6 +32,7 @@ async function getWeatherData(city) {
   let endDate = convertDate(`${year}-${month}-${day + 7}`);
 
   let dayNamesArray = [];
+  let dayTempArray = [];
 
   console.log(startDate, endDate);
   const res = await fetch(
@@ -44,7 +45,7 @@ async function getWeatherData(city) {
   let datetime = weatherData.currentConditions.datetime;
   let currentTime = datetime.slice(0, 5);
   let currentDate = getCurrentDate(year, monthName, day, dayName);
-  const temp = weatherData.currentConditions.temp;
+  const temp = weatherData.currentConditions.temp.toString().slice(0, 2);
   const condition = weatherData.currentConditions.conditions;
   const feelsLike = weatherData.currentConditions.feelslike;
   const humidity = weatherData.currentConditions.humidity;
@@ -59,7 +60,10 @@ async function getWeatherData(city) {
     dayNamesArray.push(getCurrentDay(new Date(date.datetime).getUTCDay()))
   );
 
+  dates.forEach((date) => dayTempArray.push(date.temp.toString().slice(0, 2)));
+
   console.log(dayNamesArray);
+  console.log(dayTempArray);
 
   const cityContainer = document.getElementById("city");
   const dateContainer = document.getElementById("date");
@@ -82,6 +86,14 @@ async function getWeatherData(city) {
   );
   const eigthConsecutiveDay = document.getElementById("eightConsecutiveDay");
 
+  const secondDayTemp = document.getElementById("secondDayTemp");
+  const thirdDayTemp = document.getElementById("thirdDayTemp");
+  const fourthDayTemp = document.getElementById("fourthDayTemp");
+  const fifthDayTemp = document.getElementById("fifthDayTemp");
+  const sixthDayTemp = document.getElementById("sixthDayTemp");
+  const seventhDayTemp = document.getElementById("seventhDayTemp");
+  const eightDayTemp = document.getElementById("eightDayTemp");
+
   cityContainer.textContent = address;
   dateContainer.textContent = `${currentDate} | ${currentTime}`;
   tempContainer.textContent = `${temp}°F`;
@@ -100,6 +112,14 @@ async function getWeatherData(city) {
   sixthConsecutiveDay.textContent = dayNamesArray[4];
   seventhConsecutiveDay.textContent = dayNamesArray[5];
   eigthConsecutiveDay.textContent = dayNamesArray[6];
+
+  secondDayTemp.textContent = dayTempArray[0];
+  thirdDayTemp.textContent = dayTempArray[1];
+  fourthDayTemp.textContent = dayTempArray[2];
+  fifthDayTemp.textContent = dayTempArray[3];
+  sixthDayTemp.textContent = dayTempArray[4];
+  seventhDayTemp.textContent = dayTempArray[5];
+  eightDayTemp.textContent = dayTempArray[6];
 
   const weatherObj = {
     address,
