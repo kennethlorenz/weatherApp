@@ -31,6 +31,8 @@ async function getWeatherData(city) {
   let startDate = convertDate(`${year}-${month}-${day}`);
   let endDate = convertDate(`${year}-${month}-${day + 7}`);
 
+  let dayNamesArray = [];
+
   console.log(startDate, endDate);
   const res = await fetch(
     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${startDate}/${endDate}?key=${apiKey}`,
@@ -52,6 +54,12 @@ async function getWeatherData(city) {
   const sunset = weatherData.currentConditions.sunset.slice(0, 5);
   const sunrise = weatherData.currentConditions.sunrise.slice(0, 5);
   console.log(weatherData);
+  let dates = weatherData.days.slice(1, 8);
+  dates.forEach((date) =>
+    dayNamesArray.push(getCurrentDay(new Date(date.datetime).getUTCDay()))
+  );
+
+  console.log(dayNamesArray);
 
   const cityContainer = document.getElementById("city");
   const dateContainer = document.getElementById("date");
@@ -64,6 +72,15 @@ async function getWeatherData(city) {
   const sunriseContainer = document.getElementById("sunrise");
   const sunsetContainer = document.getElementById("sunset");
   const humidityContainer = document.getElementById("humidity");
+  const secondConsecutiveDay = document.getElementById("secondConsecutiveDay");
+  const thirdConsecutiveDay = document.getElementById("thirdConsecutiveDay");
+  const fourthConsecutiveDay = document.getElementById("fourthConsecutiveDay");
+  const fifthConsecutiveDay = document.getElementById("fifthConsecutiveDay");
+  const sixthConsecutiveDay = document.getElementById("sixthConsecutiveDay");
+  const seventhConsecutiveDay = document.getElementById(
+    "seventhConsecutiveDay"
+  );
+  const eigthConsecutiveDay = document.getElementById("eightConsecutiveDay");
 
   cityContainer.textContent = address;
   dateContainer.textContent = `${currentDate} | ${currentTime}`;
@@ -76,6 +93,13 @@ async function getWeatherData(city) {
   sunriseContainer.textContent = `${sunrise}`;
   sunsetContainer.textContent = `${sunset}`;
   humidityContainer.textContent = `${humidity}%`;
+  secondConsecutiveDay.textContent = dayNamesArray[0];
+  thirdConsecutiveDay.textContent = dayNamesArray[1];
+  fourthConsecutiveDay.textContent = dayNamesArray[2];
+  fifthConsecutiveDay.textContent = dayNamesArray[3];
+  sixthConsecutiveDay.textContent = dayNamesArray[4];
+  seventhConsecutiveDay.textContent = dayNamesArray[5];
+  eigthConsecutiveDay.textContent = dayNamesArray[6];
 
   const weatherObj = {
     address,
