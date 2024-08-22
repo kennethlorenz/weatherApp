@@ -231,6 +231,11 @@ footer {
   justify-content: center;
 }
 
+a {
+  text-decoration: none;
+  color: var(--light);
+}
+
 span {
   cursor: pointer;
 }
