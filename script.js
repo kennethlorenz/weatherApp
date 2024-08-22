@@ -18,6 +18,12 @@ function getCurrentDateAndTime() {
   return dateString;
 }
 
+function updateCurrentTempScale() {
+  let tempScale = document.getElementById("tempScale").textContent;
+  let scale = document.getElementById("scale");
+  scale.textContent = isCelsius(tempScale) ? "°F" : "°C";
+}
+
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
 
@@ -98,8 +104,8 @@ async function getWeatherData(city) {
   cityContainer.textContent = address;
   dateContainer.textContent = `${currentDate} | ${currentTime}`;
   tempContainer.textContent = isCelsius(tempScale)
-    ? `${temp}°F`
-    : `${convertToCelsius(temp).slice(0, 2)}°C`;
+    ? `${temp}`
+    : `${convertToCelsius(temp).slice(0, 2)}`;
   conditionContainer.textContent = condition;
   feelsContainer.textContent = `Feels Like ${feelsLike}°F`;
   visibilityContainer.textContent = `${visibility}km`;
@@ -138,6 +144,7 @@ async function getWeatherData(city) {
     ? dayTempArray[6]
     : convertToCelsius(dayTempArray[6]).slice(0, 2);
 
+  updateCurrentTempScale();
   const weatherObj = {
     address,
     currentTime,
@@ -164,7 +171,6 @@ function convertDate(str) {
 }
 
 function isCelsius(temp) {
-  console.log(temp);
   if (temp == "C") {
     return true;
   } else {
@@ -173,8 +179,13 @@ function isCelsius(temp) {
 }
 
 function convertToCelsius(temp) {
-  let celsiusTemp = (temp - 32) * (5 / 9);
+  let celsiusTemp = Math.round((temp - 32) * (5 / 9));
   return celsiusTemp.toString();
+}
+
+function convertToFahrenheit(temp) {
+  let fahrenheitTemp = Math.round((temp * 9) / 5 + 32);
+  return fahrenheitTemp.toString();
 }
 
 function getCurrentDay(day) {
@@ -197,6 +208,52 @@ function getCurrentDate(year, month, day, dayName) {
   return currentDate;
 }
 
+function updateTempBasedOnScale() {
+  let tempScale = document.getElementById("tempScale").textContent;
+  const tempContainer = document.getElementById("temperature");
+  const secondDayTemp = document.getElementById("secondDayTemp");
+  const thirdDayTemp = document.getElementById("thirdDayTemp");
+  const fourthDayTemp = document.getElementById("fourthDayTemp");
+  const fifthDayTemp = document.getElementById("fifthDayTemp");
+  const sixthDayTemp = document.getElementById("sixthDayTemp");
+  const seventhDayTemp = document.getElementById("seventhDayTemp");
+  const eightDayTemp = document.getElementById("eightDayTemp");
+
+  console.log(isCelsius(tempScale));
+
+  tempContainer.textContent = isCelsius(tempScale)
+    ? convertToCelsius(tempContainer.textContent).slice(0, 2)
+    : convertToFahrenheit(tempContainer.textContent).slice(0, 2);
+
+  secondDayTemp.textContent = isCelsius(tempScale)
+    ? convertToCelsius(secondDayTemp.textContent).slice(0, 2)
+    : convertToFahrenheit(secondDayTemp.textContent).slice(0, 2);
+
+  thirdDayTemp.textContent = isCelsius(tempScale)
+    ? convertToCelsius(thirdDayTemp.textContent).slice(0, 2)
+    : convertToFahrenheit(thirdDayTemp.textContent).slice(0, 2);
+
+  fourthDayTemp.textContent = isCelsius(tempScale)
+    ? convertToCelsius(fourthDayTemp.textContent).slice(0, 2)
+    : convertToFahrenheit(fourthDayTemp.textContent).slice(0, 2);
+
+  fifthDayTemp.textContent = isCelsius(tempScale)
+    ? convertToCelsius(fifthDayTemp.textContent).slice(0, 2)
+    : convertToFahrenheit(fifthDayTemp.textContent).slice(0, 2);
+
+  sixthDayTemp.textContent = isCelsius(tempScale)
+    ? convertToCelsius(sixthDayTemp.textContent).slice(0, 2)
+    : convertToFahrenheit(sixthDayTemp.textContent).slice(0, 2);
+
+  seventhDayTemp.textContent = isCelsius(tempScale)
+    ? convertToCelsius(seventhDayTemp.textContent).slice(0, 2)
+    : convertToFahrenheit(seventhDayTemp.textContent).slice(0, 2);
+
+  eightDayTemp.textContent = isCelsius(tempScale)
+    ? convertToCelsius(eightDayTemp.textContent).slice(0, 2)
+    : convertToFahrenheit(eightDayTemp.textContent).slice(0, 2);
+}
+
 xMarkBtn.addEventListener("click", () => {
   let inputField = document.getElementById("location");
   inputField.value = "";
@@ -205,6 +262,7 @@ xMarkBtn.addEventListener("click", () => {
 
 unitChangeBtn.addEventListener("click", (e) => {
   let tempScale = document.getElementById("tempScale");
+  updateTempBasedOnScale();
   if (tempScale.textContent === "F") {
     tempScale.textContent = "C";
   } else {
