@@ -18,16 +18,12 @@ function getCurrentDateAndTime() {
   return dateString;
 }
 
-function updateCurrentTempScale() {
-  let tempScale = document.getElementById("tempScale").textContent;
-  let scale = document.getElementById("scale");
-  scale.textContent = isCelsius(tempScale) ? "°F" : "°C";
-}
-
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
 
   let tempScale = document.getElementById("tempScale").textContent;
+  let scale = document.getElementById("scale");
+  scale.textContent = isCelsius(tempScale) ? "°F" : "°C";
   let date = new Date();
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -144,7 +140,6 @@ async function getWeatherData(city) {
     ? dayTempArray[6]
     : convertToCelsius(dayTempArray[6]).slice(0, 2);
 
-  updateCurrentTempScale();
   const weatherObj = {
     address,
     currentTime,
@@ -210,6 +205,7 @@ function getCurrentDate(year, month, day, dayName) {
 
 function updateTempBasedOnScale() {
   let tempScale = document.getElementById("tempScale").textContent;
+
   const tempContainer = document.getElementById("temperature");
   const secondDayTemp = document.getElementById("secondDayTemp");
   const thirdDayTemp = document.getElementById("thirdDayTemp");
@@ -263,10 +259,13 @@ xMarkBtn.addEventListener("click", () => {
 unitChangeBtn.addEventListener("click", (e) => {
   let tempScale = document.getElementById("tempScale");
   updateTempBasedOnScale();
+  let scale = document.getElementById("scale");
   if (tempScale.textContent === "F") {
     tempScale.textContent = "C";
+    scale.textContent = "°F";
   } else {
     tempScale.textContent = "F";
+    scale.textContent = "°C";
   }
 });
 
