@@ -21,6 +21,7 @@ function getCurrentDateAndTime() {
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
 
+  let tempScale = document.getElementById("tempScale").textContent;
   let date = new Date();
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -96,7 +97,9 @@ async function getWeatherData(city) {
 
   cityContainer.textContent = address;
   dateContainer.textContent = `${currentDate} | ${currentTime}`;
-  tempContainer.textContent = `${temp}°F`;
+  tempContainer.textContent = isCelsius(tempScale)
+    ? `${temp}°F`
+    : `${convertToCelsius(temp).slice(0, 2)}°C`;
   conditionContainer.textContent = condition;
   feelsContainer.textContent = `Feels Like ${feelsLike}°F`;
   visibilityContainer.textContent = `${visibility}km`;
@@ -113,13 +116,27 @@ async function getWeatherData(city) {
   seventhConsecutiveDay.textContent = dayNamesArray[5];
   eigthConsecutiveDay.textContent = dayNamesArray[6];
 
-  secondDayTemp.textContent = dayTempArray[0];
-  thirdDayTemp.textContent = dayTempArray[1];
-  fourthDayTemp.textContent = dayTempArray[2];
-  fifthDayTemp.textContent = dayTempArray[3];
-  sixthDayTemp.textContent = dayTempArray[4];
-  seventhDayTemp.textContent = dayTempArray[5];
-  eightDayTemp.textContent = dayTempArray[6];
+  secondDayTemp.textContent = isCelsius(tempScale)
+    ? dayTempArray[0]
+    : convertToCelsius(dayTempArray[0]).slice(0, 2);
+  thirdDayTemp.textContent = isCelsius(tempScale)
+    ? dayTempArray[1]
+    : convertToCelsius(dayTempArray[1]).slice(0, 2);
+  fourthDayTemp.textContent = isCelsius(tempScale)
+    ? dayTempArray[2]
+    : convertToCelsius(dayTempArray[2]).slice(0, 2);
+  fifthDayTemp.textContent = isCelsius(tempScale)
+    ? dayTempArray[3]
+    : convertToCelsius(dayTempArray[3]).slice(0, 2);
+  sixthDayTemp.textContent = isCelsius(tempScale)
+    ? dayTempArray[4]
+    : convertToCelsius(dayTempArray[4]).slice(0, 2);
+  seventhDayTemp.textContent = isCelsius(tempScale)
+    ? dayTempArray[5]
+    : convertToCelsius(dayTempArray[5]).slice(0, 2);
+  eightDayTemp.textContent = isCelsius(tempScale)
+    ? dayTempArray[6]
+    : convertToCelsius(dayTempArray[6]).slice(0, 2);
 
   const weatherObj = {
     address,
@@ -144,6 +161,20 @@ function convertDate(str) {
     .split("-")
     .map((s) => (s < 10 ? `0${s}` : s))
     .join("-");
+}
+
+function isCelsius(temp) {
+  console.log(temp);
+  if (temp == "C") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function convertToCelsius(temp) {
+  let celsiusTemp = (temp - 32) * (5 / 9);
+  return celsiusTemp.toString();
 }
 
 function getCurrentDay(day) {
@@ -173,11 +204,11 @@ xMarkBtn.addEventListener("click", () => {
 });
 
 unitChangeBtn.addEventListener("click", (e) => {
-  console.log(e.target.textContent);
-  if (e.target.textContent === "Change to °F") {
-    e.target.textContent = "Change to °C";
+  let tempScale = document.getElementById("tempScale");
+  if (tempScale.textContent === "F") {
+    tempScale.textContent = "C";
   } else {
-    e.target.textContent = "Change to °F";
+    tempScale.textContent = "F";
   }
 });
 
