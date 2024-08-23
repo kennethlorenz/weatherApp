@@ -143,6 +143,7 @@ main {
 /* Conditions left side*/
 #temperature-section {
   gap: 1.5rem;
+  align-items: center;
 }
 
 #temperature-logo,
@@ -150,6 +151,11 @@ main {
 #scale {
   font-size: var(--large-text);
   font-weight: bold;
+}
+
+#temperature-logo img {
+  width: 5rem;
+  height: 5rem;
 }
 
 #condition {
