@@ -18,12 +18,20 @@ function getCurrentDateAndTime() {
   return dateString;
 }
 
+function getCurrentScale() {
+  let tempScale = document.getElementById("tempScale").textContent;
+  let currentScale = isCelsius(tempScale) ? "°F" : "°C";
+
+  return currentScale;
+}
+
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
 
   let tempScale = document.getElementById("tempScale").textContent;
   let scale = document.getElementById("scale");
-  scale.textContent = isCelsius(tempScale) ? "°F" : "°C";
+  let currentScale = getCurrentScale();
+  scale.textContent = currentScale;
   let date = new Date();
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -65,9 +73,6 @@ async function getWeatherData(city) {
 
   dates.forEach((date) => dayTempArray.push(date.temp.toString().slice(0, 2)));
 
-  console.log(dayNamesArray);
-  console.log(dayTempArray);
-
   const cityContainer = document.getElementById("city");
   const dateContainer = document.getElementById("date");
   const tempContainer = document.getElementById("temperature");
@@ -97,13 +102,17 @@ async function getWeatherData(city) {
   const seventhDayTemp = document.getElementById("seventhDayTemp");
   const eightDayTemp = document.getElementById("eightDayTemp");
 
+  let feels = isCelsius(tempScale)
+    ? `${temp}`
+    : `${convertToCelsius(temp).slice(0, 2)}`;
+
   cityContainer.textContent = address;
   dateContainer.textContent = `${currentDate} | ${currentTime}`;
   tempContainer.textContent = isCelsius(tempScale)
     ? `${temp}`
     : `${convertToCelsius(temp).slice(0, 2)}`;
   conditionContainer.textContent = condition;
-  feelsContainer.textContent = `Feels Like ${feelsLike}°F`;
+  feelsContainer.textContent = `Feels Like ${feels}${currentScale}`;
   visibilityContainer.textContent = `${visibility}km`;
   cloudinessContainer.textContent = `${cloudiness}%`;
   chanceOfRainContainer.textContent = `${chanceOfRain}%`;
@@ -205,8 +214,8 @@ function getCurrentDate(year, month, day, dayName) {
 
 function updateTempBasedOnScale() {
   let tempScale = document.getElementById("tempScale").textContent;
-
   const tempContainer = document.getElementById("temperature");
+  const feelsContainer = document.getElementById("feelsLike");
   const secondDayTemp = document.getElementById("secondDayTemp");
   const thirdDayTemp = document.getElementById("thirdDayTemp");
   const fourthDayTemp = document.getElementById("fourthDayTemp");
@@ -215,11 +224,16 @@ function updateTempBasedOnScale() {
   const seventhDayTemp = document.getElementById("seventhDayTemp");
   const eightDayTemp = document.getElementById("eightDayTemp");
 
-  console.log(isCelsius(tempScale));
+  let feelsTemp = feelsContainer.textContent.slice(11, 13).toString();
+  console.log(feelsTemp);
 
   tempContainer.textContent = isCelsius(tempScale)
     ? convertToCelsius(tempContainer.textContent).slice(0, 2)
     : convertToFahrenheit(tempContainer.textContent).slice(0, 2);
+
+  feelsContainer.textContent = isCelsius(tempScale)
+    ? `Feels like ${convertToCelsius(feelsTemp).slice(0, 2)}${tempScale}`
+    : `Feels like ${convertToFahrenheit(feelsTemp).slice(0, 2)}${tempScale}`;
 
   secondDayTemp.textContent = isCelsius(tempScale)
     ? convertToCelsius(secondDayTemp.textContent).slice(0, 2)
