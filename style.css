@@ -245,3 +245,8 @@ a {
 span {
   cursor: pointer;
 }
+
+img.weekly-icons {
+  height: 3.5rem;
+  width: 3.55rem;
+}
