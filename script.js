@@ -25,6 +25,12 @@ function getCurrentScale() {
   return currentScale;
 }
 
+function padNumber(number) {
+  var string = "" + number;
+  string = string.length < 2 ? "0" + string : string;
+  return string;
+}
+
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
 
@@ -40,14 +46,20 @@ async function getWeatherData(city) {
   let dayName = getCurrentDay(date.getDay());
 
   let startDate = convertDate(`${year}-${month}-${day}`);
-  let endDate = convertDate(`${year}-${month}-${day + 7}`);
 
   let dayNamesArray = [];
   let dayTempArray = [];
+  let currDate = new Date(startDate);
+  let endDate = new Date(currDate.setDate(currDate.getDate() + 7));
+  let formattedEndDate =
+    endDate.getUTCFullYear() +
+    "-" +
+    padNumber(endDate.getUTCMonth() + 1) +
+    "-" +
+    padNumber(endDate.getUTCDate());
 
-  console.log(startDate, endDate);
   const res = await fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${startDate}/${endDate}?key=${apiKey}`,
+    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${startDate}/${formattedEndDate}?key=${apiKey}`,
     { mode: "cors" }
   );
 
