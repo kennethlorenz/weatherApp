@@ -31,6 +31,14 @@ function padNumber(number) {
   return string;
 }
 
+function updateWeeklyWeatherIcons(iconsArray) {
+  for (let i = 0; i < 8; i++) {
+    let day = document.getElementById(`day${i}`);
+    console.log(day);
+    day.src = `./icons/${iconsArray[i]}.svg`;
+  }
+}
+
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
 
@@ -49,6 +57,7 @@ async function getWeatherData(city) {
 
   let dayNamesArray = [];
   let dayTempArray = [];
+  let icons = [];
   let currDate = new Date(startDate);
   let endDate = new Date(currDate.setDate(currDate.getDate() + 7));
   let formattedEndDate =
@@ -78,13 +87,13 @@ async function getWeatherData(city) {
   const sunset = weatherData.currentConditions.sunset.slice(0, 5);
   const sunrise = weatherData.currentConditions.sunrise.slice(0, 5);
   console.log(weatherData);
-  let dates = weatherData.days.slice(1, 8);
+  let dates = weatherData.days.slice(0, 8);
   dates.forEach((date) =>
     dayNamesArray.push(getCurrentDay(new Date(date.datetime).getUTCDay()))
   );
 
   dates.forEach((date) => dayTempArray.push(date.temp.toString().slice(0, 2)));
-
+  dates.forEach((date) => icons.push(date.icon));
   const cityContainer = document.getElementById("city");
   const dateContainer = document.getElementById("date");
   const tempContainer = document.getElementById("temperature");
@@ -116,7 +125,7 @@ async function getWeatherData(city) {
 
   let feels = isCelsius(tempScale)
     ? `${temp}`
-    : `${convertToCelsius(temp).slice(0, 2)}`;
+    : `${convertToCelsius(dayTempArray[1]).slice(0, 2)}`;
 
   cityContainer.textContent = address;
   dateContainer.textContent = `${currentDate} | ${currentTime}`;
@@ -131,35 +140,35 @@ async function getWeatherData(city) {
   sunriseContainer.textContent = `${sunrise}`;
   sunsetContainer.textContent = `${sunset}`;
   humidityContainer.textContent = `${humidity}%`;
-  secondConsecutiveDay.textContent = dayNamesArray[0];
-  thirdConsecutiveDay.textContent = dayNamesArray[1];
-  fourthConsecutiveDay.textContent = dayNamesArray[2];
-  fifthConsecutiveDay.textContent = dayNamesArray[3];
-  sixthConsecutiveDay.textContent = dayNamesArray[4];
-  seventhConsecutiveDay.textContent = dayNamesArray[5];
-  eigthConsecutiveDay.textContent = dayNamesArray[6];
+  secondConsecutiveDay.textContent = dayNamesArray[1];
+  thirdConsecutiveDay.textContent = dayNamesArray[2];
+  fourthConsecutiveDay.textContent = dayNamesArray[3];
+  fifthConsecutiveDay.textContent = dayNamesArray[4];
+  sixthConsecutiveDay.textContent = dayNamesArray[5];
+  seventhConsecutiveDay.textContent = dayNamesArray[6];
+  eigthConsecutiveDay.textContent = dayNamesArray[7];
 
   secondDayTemp.textContent = isCelsius(tempScale)
-    ? dayTempArray[0]
-    : convertToCelsius(dayTempArray[0]).slice(0, 2);
-  thirdDayTemp.textContent = isCelsius(tempScale)
     ? dayTempArray[1]
     : convertToCelsius(dayTempArray[1]).slice(0, 2);
-  fourthDayTemp.textContent = isCelsius(tempScale)
+  thirdDayTemp.textContent = isCelsius(tempScale)
     ? dayTempArray[2]
     : convertToCelsius(dayTempArray[2]).slice(0, 2);
-  fifthDayTemp.textContent = isCelsius(tempScale)
+  fourthDayTemp.textContent = isCelsius(tempScale)
     ? dayTempArray[3]
     : convertToCelsius(dayTempArray[3]).slice(0, 2);
-  sixthDayTemp.textContent = isCelsius(tempScale)
+  fifthDayTemp.textContent = isCelsius(tempScale)
     ? dayTempArray[4]
     : convertToCelsius(dayTempArray[4]).slice(0, 2);
-  seventhDayTemp.textContent = isCelsius(tempScale)
+  sixthDayTemp.textContent = isCelsius(tempScale)
     ? dayTempArray[5]
     : convertToCelsius(dayTempArray[5]).slice(0, 2);
-  eightDayTemp.textContent = isCelsius(tempScale)
+  seventhDayTemp.textContent = isCelsius(tempScale)
     ? dayTempArray[6]
     : convertToCelsius(dayTempArray[6]).slice(0, 2);
+  eightDayTemp.textContent = isCelsius(tempScale)
+    ? dayTempArray[7]
+    : convertToCelsius(dayTempArray[7]).slice(0, 2);
 
   const weatherObj = {
     address,
@@ -176,6 +185,7 @@ async function getWeatherData(city) {
     sunrise,
   };
   console.log(weatherObj);
+  updateWeeklyWeatherIcons(icons);
   return weatherObj;
 }
 
