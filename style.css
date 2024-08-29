@@ -256,8 +256,8 @@ img.weekly-icons {
   border: 16px solid #f0f8fe;
   border-radius: 50%;
   border-top: 16px solid #6bb8ef;
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
   margin: 0 auto;
