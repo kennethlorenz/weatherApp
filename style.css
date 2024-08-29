@@ -285,3 +285,12 @@ img.weekly-icons {
     transform: rotate(360deg);
   }
 }
+
+/* error */
+.error {
+  margin: 0 auto;
+  font-size: 4rem;
+  font-weight: bold;
+  border-radius: 2rem;
+  padding: 1rem 3rem;
+}
