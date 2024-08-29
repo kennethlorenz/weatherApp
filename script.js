@@ -69,6 +69,9 @@ function hideError() {
 }
 
 async function getWeatherData(city) {
+  hideError();
+  displayLoader();
+  hideMainContent();
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
 
   let tempScale = document.getElementById("tempScale").textContent;
@@ -95,17 +98,21 @@ async function getWeatherData(city) {
     padNumber(endDate.getUTCMonth() + 1) +
     "-" +
     padNumber(endDate.getUTCDate());
+
+  setTimeout(() => {
+    hideLoader();
+  }, 500);
   try {
     const res = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${startDate}/${formattedEndDate}?key=${apiKey}`,
       { mode: "cors" }
     );
-
-    console.log(res.status);
-
     if (res.status !== 200) {
-      displayError();
-      hideMainContent();
+      setTimeout(() => {
+        hideLoader();
+        displayError();
+        hideMainContent();
+      }, 500);
     } else {
       hideError();
       const weatherData = await res.json();
@@ -235,8 +242,10 @@ async function getWeatherData(city) {
         sunrise,
       };
       console.log(weatherObj);
-      updateWeeklyWeatherIcons(icons);
-      displayMainContent();
+      setTimeout(() => {
+        updateWeeklyWeatherIcons(icons);
+        displayMainContent();
+      }, 500);
     }
   } catch (e) {
     console.log(e);
