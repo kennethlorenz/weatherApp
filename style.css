@@ -251,6 +251,10 @@ img.weekly-icons {
   width: 3.55rem;
 }
 
+.hide {
+  display: none;
+}
+
 /* loader */
 .loader {
   border: 16px solid #f0f8fe;
