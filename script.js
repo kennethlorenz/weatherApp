@@ -39,6 +39,26 @@ function updateWeeklyWeatherIcons(iconsArray) {
   }
 }
 
+function displayLoader() {
+  const loader = document.querySelector(".loader");
+  loader.classList.remove("hide");
+}
+
+function hideLoader() {
+  const loader = document.querySelector(".loader");
+  loader.classList.add("hide");
+}
+
+function hideMainContent() {
+  const main = document.querySelector("main");
+  main.classList.add("hide");
+}
+
+function displayMainContent() {
+  const main = document.querySelector("main");
+  main.classList.remove("hide");
+}
+
 async function getWeatherData(city) {
   const apiKey = "FTQDUTWGT93NS9LP54Y58HUPK";
 
@@ -293,6 +313,9 @@ xMarkBtn.addEventListener("click", () => {
 });
 
 unitChangeBtn.addEventListener("click", (e) => {
+  hideMainContent();
+  displayLoader();
+
   let tempScale = document.getElementById("tempScale");
   updateTempBasedOnScale();
   let scale = document.getElementById("scale");
@@ -303,6 +326,10 @@ unitChangeBtn.addEventListener("click", (e) => {
     tempScale.textContent = "F";
     scale.textContent = "°C";
   }
+  setTimeout(() => {
+    hideLoader();
+    displayMainContent();
+  }, 500);
 });
 
 cityLocation.addEventListener("keyup", (e) => {
