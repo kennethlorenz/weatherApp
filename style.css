@@ -296,3 +296,54 @@ img.weekly-icons {
   border-radius: 2rem;
   padding: 1rem 3rem;
 }
+
+/* media queries */
+@media only screen and (max-width: 1000px) {
+  header {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  #city {
+    font-size: 3rem;
+  }
+
+  #currentConditions {
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  #weeklyData {
+    margin-bottom: 2rem;
+    flex-direction: column;
+  }
+
+  .day-data {
+    border-bottom: 3px solid var(--light-faded);
+    width: 25rem;
+    align-items: center;
+    padding-bottom: 1rem;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #city {
+    min-width: 25rem;
+    text-align: center;
+  }
+  #temperature-logo,
+  #temperature,
+  #scale {
+    font-size: var(--medium-text);
+  }
+
+  #currentConditions {
+  }
+
+  #conditions {
+    margin-left: 4rem;
+  }
+
+  .row-item {
+    max-width: 12rem;
+  }
+}
