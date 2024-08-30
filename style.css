@@ -25,7 +25,7 @@ html {
 
 body {
   font-family: "Nunito", "Times New Roman", Times, serif;
-  background-image: linear-gradient(to bottom, #2a6acb, #264b82);
+  background-image: linear-gradient(to right, #2a6acb, #264b82);
   color: var(--light);
   padding: 3rem 4rem;
   display: flex;
@@ -228,9 +228,6 @@ main {
 footer {
   display: flex;
   font-size: 1.25rem;
-  position: absolute;
-  left: 0;
-  bottom: 0;
   padding: 2rem;
   width: 100%;
   align-self: center;
