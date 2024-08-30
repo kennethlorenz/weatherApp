@@ -31,6 +31,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5rem;
+  position: relative;
+  min-height: 100vh;
 }
 
 .flex {
@@ -228,6 +230,9 @@ main {
 footer {
   display: flex;
   font-size: 1.25rem;
+  position: absolute;
+  left: 0;
+  bottom: 0;
   padding: 2rem;
   width: 100%;
   align-self: center;
